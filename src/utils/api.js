@@ -1,9 +1,14 @@
-const API_BASE_URL = 'http://127.0.0.1:8000';
-// const API_BASE_URL = 'http://backend-v1-psi.vercel.app';
+// const API_BASE_URL = 'http://127.0.0.1:8000';
+const API_BASE_URL = 'https://backend-v1-psi.vercel.app';
 
 export async function getProducts() {
     try {
-        const response = await fetch(`${API_BASE_URL}/product/`);
+        const response = await fetch(`${API_BASE_URL}/product/`, {
+            mode: 'cors',
+            headers: {
+                'Accept': 'application/json',
+            }
+        });
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -17,7 +22,11 @@ export async function getProducts() {
 export async function getCart() {
     try {
         const response = await fetch(`${API_BASE_URL}/cart/`, {
-            credentials: "include"
+            credentials: "include",
+            mode: 'cors',
+            headers: {
+                'Accept': 'application/json',
+            }
         });
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -35,9 +44,11 @@ export async function addToCart(productId, quantity = 1) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Accept': 'application/json',
             },
             body: JSON.stringify({ ProductId: productId, Quantity: quantity }),
-            credentials: "include"
+            credentials: "include",
+            mode: 'cors'
         });
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -53,7 +64,11 @@ export async function clearCart() {
     try {
         const response = await fetch(`${API_BASE_URL}/cart/clear`, {
             method: 'POST',
-            credentials: "include"
+            credentials: "include",
+            mode: 'cors',
+            headers: {
+                'Accept': 'application/json',
+            }
         });
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
@@ -71,6 +86,7 @@ export async function checkoutCart(checkoutDetails) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
+                'Accept': 'application/json',
             },
             body: JSON.stringify({
                 CustomerName: checkoutDetails.CustomerName,
@@ -80,7 +96,8 @@ export async function checkoutCart(checkoutDetails) {
                 City: checkoutDetails.City,
                 Notes: checkoutDetails.Notes
             }),
-            credentials: "include"
+            credentials: "include",
+            mode: 'cors'
         });
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`);
