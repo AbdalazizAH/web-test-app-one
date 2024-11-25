@@ -1,5 +1,5 @@
 // const API_BASE_URL = 'http://127.0.0.1:8000';
-const API_BASE_URL = 'https://backend-v1-psi.vercel.app';
+const API_BASE_URL = 'http://backend-v1-psi.vercel.app';
 
 export async function getProducts() {
     try {
